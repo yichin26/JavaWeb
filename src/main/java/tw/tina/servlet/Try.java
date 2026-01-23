@@ -25,11 +25,11 @@ public class Try extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 //		double rate = 0; // 50%
-		
-		int num = (int)(Math.random()*10+1); 
-		int pd[]=new int[4];
-		for(int i=0;i<pd.length;i++) {
-			num = pd[i];
+        StringBuilder sb = new StringBuilder();		
+		int num = (int)(Math.random()*10); 
+
+		for(int i=0;i<4;i++) {
+			
 		}
 		System.out.println(num);
 		
@@ -40,7 +40,7 @@ public class Try extends HttpServlet {
 		
 		Font f = new Font(null,Font.BOLD,80);
 		AffineTransform trans = new AffineTransform();
-		trans.shear(1,0);
+		trans.shear(1.5,0);
 		Font ft= f.deriveFont(trans);
 		g2d.setFont(ft);				
 		g2d.setColor(Color.gray);
