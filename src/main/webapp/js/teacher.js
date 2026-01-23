@@ -1,46 +1,59 @@
-window.onload = function(){
-	let start = document.getElementById("startbtn");
-	let chatDiv = document.getElementById("chatDiv");
-	let mesg = document.getElementById("mesg");
-	let send = document.getElementById("send");
-	let log = document.getElementById("log");
-	
-	let webSocket;
-	
-	start.style.display="block";
-	chatDiv.style.display="none";
-	
-	start.addEventListener("click",function(){
-		connect("ws://10.0.101.123:8080/JavaWeb/myserver");
-		
-	});
-	
-	send.addEventListener("click",function(){
-		let message={
-			message : mesg.value
-		};
-		webSocket.send(JSON.stringify(message));
-	});
-		
-	function connect(url){
-		webSocket = new WebSocket(url);
-		webSocket.onopen = function(){
-			console.log("onOpen");
-			
-			start.style.display="none";
-			chatDiv.style.display="block";
-		}
-		webSocket.onmessage = function(event){
-			let mesgObj = JSON.parse(event.data);
-			log.innerHTML+= mesgObj.message + "<br>";
-		}
-		webSocket.onclose = function(){
-			console.log("onClose");
-		}
-		webSocket.onerror = function(event){
-			console.log("onError:"+ event);
-		}
-	}
-	
-	
+window.onload = function() {
+    let clear = document.getElementById("clear");
+    let myDrawer = document.getElementById("myDrawer");
+    let webSocket = new WebSocket("ws://10.0.101.123:8080/JavaWeb/mycenter");
+    let isConnect = false;
+
+    webSocket.onopen = function() {
+        isConnect = true;
+        webSocket.send(JSON.stringify({ isTeacher: true }));
+    }
+    webSocket.onclose = function() {
+        isConnect = false;
+    }
+    webSocket.onerror = function(event) {
+        console.log("onError:" + event);
+    }
+
+    //-------------------
+    let ctx = myDrawer.getContext("2d");
+    let isDrag = false;
+
+    myDrawer.onmousedown = function(e) {
+        isDrag = true;
+        let x = e.offsetX, y = e.offsetY;
+        ctx.beginPath();
+        ctx.lineWidth = 4;
+        ctx.moveTo(x, y);
+
+        let data = {
+            isNewLine: true,
+            x: x, y: y
+        };
+        webSocket.send(JSON.stringify(data));
+    }
+    myDrawer.onmouseup = function(e) {
+        isDrag = false;
+    }
+    myDrawer.onmousemove = function(e) {
+        if (isDrag) {
+            let x = e.offsetX, y = e.offsetY;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            let data = {
+				isClear:false,
+                isNewLine: false,
+                x: x, y: y
+            };
+            webSocket.send(JSON.stringify(data));
+        }
+    }
+	clear.addEventListener("click", function() {
+	        ctx.clearRect(0, 0, myDrawer.width, myDrawer.height);
+	        let data = {
+				isClear:true,
+	            x: x, y: y
+	        };
+	        webSocket.send(JSON.stringify(data));
+	    });
 }
