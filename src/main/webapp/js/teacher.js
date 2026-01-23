@@ -1,11 +1,13 @@
 window.onload = function() {
     let clear = document.getElementById("clear");
     let myDrawer = document.getElementById("myDrawer");
-    let webSocket = new WebSocket("ws://10.0.101.123:8080/JavaWeb/mycenter");
-    let isConnect = false;
+    //let webSocket = new WebSocket("ws://10.0.101.123:8080/JavaWeb/mycenter");
+	let webSocket = new WebSocket("ws://192.168.0.169:8080/JavaWeb/mycenter");
+	let isConnect = false;
 
     webSocket.onopen = function() {
         isConnect = true;
+		console.log("ok");
         webSocket.send(JSON.stringify({ isTeacher: true }));
     }
     webSocket.onclose = function() {
@@ -27,6 +29,7 @@ window.onload = function() {
         ctx.moveTo(x, y);
 
         let data = {
+			isClear:false,
             isNewLine: true,
             x: x, y: y
         };
@@ -40,6 +43,7 @@ window.onload = function() {
             let x = e.offsetX, y = e.offsetY;
             ctx.lineTo(x, y);
             ctx.stroke();
+			
             let data = {
 				isClear:false,
                 isNewLine: false,
@@ -51,8 +55,7 @@ window.onload = function() {
 	clear.addEventListener("click", function() {
 	        ctx.clearRect(0, 0, myDrawer.width, myDrawer.height);
 	        let data = {
-				isClear:true,
-	            x: x, y: y
+				isClear:true
 	        };
 	        webSocket.send(JSON.stringify(data));
 	    });

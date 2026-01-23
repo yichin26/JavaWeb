@@ -10,15 +10,14 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
 
+@ServerEndpoint("/mycenter")
 public class MyCenter {
-	@ServerEndpoint("/mycenter")
-	public class MyServer {
 
 		private static HashSet<Session> sessions;
 		private static boolean isExistTeacher = false;
 		private static Session teacherSession;
 
-		public MyServer() {
+		public MyCenter() {
 			if (sessions == null) {
 				sessions = new HashSet<>();
 			}
@@ -39,12 +38,13 @@ public class MyCenter {
 				teacherSession = session;
 				System.out.println("Teacher Exist");
 			} else if (session == teacherSession) {
+				System.out.println("Teacher Drawing");
 				for(Session userSe: sessions ) {
 					try {
 						userSe.getBasicRemote().sendText(mesg);
 						System.out.println("send student");
 					}catch (Exception e) {
-						// TODO: handle exception
+						System.out.println(e);
 					}
 				}
 
@@ -62,4 +62,3 @@ public class MyCenter {
 			System.out.println("onError()");
 		}
 	}
-}
