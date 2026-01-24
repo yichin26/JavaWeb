@@ -14,50 +14,63 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-@WebServlet("/Try")
-public class Try extends HttpServlet {
+@WebServlet("/CAPTCHA")
+public class CAPTCHA extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-//		double rate = 0; // 50%
-        StringBuilder sb = new StringBuilder();		
-		int num = (int)(Math.random()*10); 
+		Random r = new Random();
+        StringBuilder sb = new StringBuilder();	
+        int x=50;
+        int y=60;
 
 		for(int i=0;i<4;i++) {
-			
+			int num = r.nextInt(10);
+			sb.append(num);
 		}
-		System.out.println(num);
 		
-		String word = Integer.toString(num);
+		String word = sb.toString();
+		System.out.println("code:"+word);
 
-		BufferedImage img = new BufferedImage(400, 200, BufferedImage.TYPE_INT_RGB);
+		BufferedImage img = new BufferedImage(200, 100, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = img.createGraphics();
 		
-		Font f = new Font(null,Font.BOLD,80);
+		Font f = new Font(null,Font.BOLD,40);
 		AffineTransform trans = new AffineTransform();
-		trans.shear(1.5,0);
+		trans.shear(1,0);
 		Font ft= f.deriveFont(trans);
-		g2d.setFont(ft);				
-		g2d.setColor(Color.gray);
-		g2d.fillRect(0, 0, 400, 200);
-		g2d.setColor(Color.red);
-		g2d.drawString(word, 80, 80);
 		
-		g2d.drawArc(0, 0, 200, 100, 0, 45);
-
-//		g2d.setColor(Color.yellow);
-//		g2d.fillRect(0, 0, (400*num/10000), 20);
+		
+		g2d.setFont(ft);				
+		g2d.setColor(Color.DARK_GRAY);
+		g2d.fillRect(0, 0, 400, 200);
+		for(int i=0;i<15;i++) {
+			g2d.setColor(new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255)) );
+			
+			int x1 = r.nextInt(200);
+			int x2 = r.nextInt(200);
+			int y1 = r.nextInt(100);
+			int y2 = r.nextInt(100);
+			g2d.drawLine(x1, y1, x2, y2);
+		}
+		
+		for(int i=0;i<4;i++) {
+			g2d.setColor(new Color(r.nextInt(150),r.nextInt(150),r.nextInt(150)) );
+			String worddraw = String.valueOf(word.charAt(i));
+		    g2d.drawString(worddraw, x, y);
+		    x+=25;
+		}
+		//g2d.drawArc(0, 0, 200, 100, 0, 45);
 
 		response.setContentType("image/jpeg");
 		ImageIO.write(img, "JPEG", response.getOutputStream());
 		response.flushBuffer();
-		
-//		ImageIO.write(img, "JPEG", new File(target));
 	}
 
 }
