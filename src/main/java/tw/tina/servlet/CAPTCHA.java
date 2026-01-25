@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -36,6 +37,9 @@ public class CAPTCHA extends HttpServlet {
 		}
 		
 		String word = sb.toString();
+		
+		HttpSession session=request.getSession();
+		session.getAttribute(word);
 		System.out.println("code:"+word);
 
 		BufferedImage img = new BufferedImage(200, 100, BufferedImage.TYPE_INT_RGB);
