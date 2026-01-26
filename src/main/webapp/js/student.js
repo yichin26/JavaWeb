@@ -1,6 +1,7 @@
 window.onload = function() {
     let myDrawer = document.getElementById("myDrawer");
-    let webSocket = new WebSocket("ws://192.168.0.169:8080/JavaWeb/mycenter");
+    //let webSocket = new WebSocket("ws://192.168.0.169:8080/JavaWeb/mycenter");
+    let webSocket = new WebSocket("ws://10.0.101.123:8080/JavaWeb/mycenter");
     let isConnect = false;
 
     webSocket.onopen = function() {
