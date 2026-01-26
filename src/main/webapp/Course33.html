@@ -8,8 +8,8 @@
 	function op() {
 		let url = "Course33.jsp";
 			$.post(url,{
-				x:$('#x').val,
-				y:$('#y').val,
+				x:$('#x').val(),
+				y:$('#y').val(),
 			},function(data,status){
 				if (status == 'success'){
 					$('#result').html(data.result)
@@ -19,11 +19,11 @@
 </script>
 </head>
 <body>
-	<input name="x"> 
+	<input id="x"> 
 	+
-	<input name="y">
+	<input id="y">
 	<input type="button" onclick="op()" value="=">
-	<span><id="result"></span>
+	<span id="result"></span>
 
 </body>
 </html>
