@@ -16,6 +16,7 @@ import org.json.JSONObject;
 public class Course32 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getReader();
 		JSONObject obj = new JSONObject();
 		obj.put("x", 10).put("y", 3);
 		
