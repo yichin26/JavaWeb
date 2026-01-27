@@ -1,12 +1,20 @@
+<%@page import="java.io.BufferedInputStream"%>
 <%@page import="org.json.*"%>
 <%@ page language="java" contentType="application/json; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	String x = request.getParameter("x");
-	String y = request.getParameter("y");
-	String op = request.getParameter("op");
-	int result=0,mod=0;
+	byte[] json = new BufferedInputStream(request.getInputStream()).readAllBytes();
+	String data = new String(json,"UTF-8");
+
+	JSONObject root = new JSONObject(data);
+	JSONObject params = root.getJSONObject("params");
+
+	String op = root.getString("op");
+    String x = params.getString("x");
+	String y = params.getString("y");
 	
+
+	int result=0,mod=0;
 	switch(op) {
 		case"1":
 			result = Integer.parseInt(x) + Integer.parseInt(y);
