@@ -5,7 +5,7 @@
 <c:catch var="err">
 <sql:setDataSource
 		driver="com.mysql.cj.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/iii"
+		url="jdbc:mysql://localhost:8889/iii"
 		user="root"
 		password="root"
 	/>

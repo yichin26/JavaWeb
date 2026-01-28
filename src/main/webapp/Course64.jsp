@@ -7,7 +7,7 @@
 <c:set var="foods" value="${Utils.parseFood(data) }"></c:set>
 		<sql:setDataSource
 		driver="com.mysql.cj.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/iii"
+		url="jdbc:mysql://localhost:8889/iii"
 		user="root"
 		password="root"
 	/>
