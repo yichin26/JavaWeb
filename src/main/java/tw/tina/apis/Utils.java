@@ -57,6 +57,10 @@ public class Utils {
 		return foods;
 	}
 	
+	public static int calcPages(int total,int rpp) {
+		return (int)(Math.ceil(total*1.0 /rpp));
+	}
+	
 	public static String order2JSON(SortedMap[]rows) {
 		
 		JSONObject root = new JSONObject();
