@@ -39,8 +39,8 @@
 								<td>${gift.id }</td>
 								<td>${gift.name }</td>
 								<td>${gift.feature }</td>
-								<td>${gift.addr }</td>
 								<td>${gift.tel }</td>
+								<td>${gift.addr }</td>
 								<td><img src="${gift.picurl }"></td>
 							</tr>
 						</c:forEach>
