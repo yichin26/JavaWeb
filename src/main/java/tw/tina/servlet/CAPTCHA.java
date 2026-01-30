@@ -39,7 +39,7 @@ public class CAPTCHA extends HttpServlet {
 		String word = sb.toString();
 		
 		HttpSession session=request.getSession();
-		session.getAttribute(word);
+		session.setAttribute("capchacode",word);
 		System.out.println("code:"+word);
 
 		BufferedImage img = new BufferedImage(200, 100, BufferedImage.TYPE_INT_RGB);

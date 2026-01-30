@@ -2,12 +2,26 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>CAPTCHA</title>	
+		<title>CAPTCHA</title>
+		<script type="text/javascript">
+			function changecode() {
+				let img = document.getElementById('codeimage');
+				img.src = "CAPTCHA?t=" + new Date().getTime();
+			}
+			
+			
+			
+		
+		</script>	
 	</head>
 	<body>
+		<form action="Login" method="post">
 		帳號：<input id="account"><br>
 		密碼：<input id="psw"><br>
-		驗證碼：<img alt="" src="CAPTCHA"><input id="code"><button>送出</button><br>
-	
+		驗證碼：
+		<img id="codeimage" alt="" src="CAPTCHA">
+		<button  type="button" id="change" onclick="changecode()">換一張</button>
+		<input type="text" name="code"><button id="send">送出</button><br>
+	</form>
 	</body>
 </html>
