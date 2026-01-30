@@ -26,7 +26,7 @@ public class Gift {
 	public String getAddr() {
 		return addr;
 	}
-	public void setAddr(String add) {
+	public void setAddr(String addr) {
 		this.addr = addr;
 	}
 	public String getTel() {
